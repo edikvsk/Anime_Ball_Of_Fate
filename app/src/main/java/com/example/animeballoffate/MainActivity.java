@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
             "Да", "Нет", "Возможно", "Определенно", "Скорее да", "Скорее нет", "Не знаю"
     };
 
+    private String lastQuestion = ""; // Переменная для хранения последнего вопроса
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +42,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String question = questionInput.getText().toString();
                 if (!question.isEmpty()) {
-                    String answer = getRandomAnswer();
-                    answerOutput.setText(answer);
+                    if (question.equals(lastQuestion)) {
+                        answerOutput.setText("Вы уже получили ответ на этот вопрос");
+                    } else {
+                        String answer = getRandomAnswer();
+                        answerOutput.setText(answer);
+                        lastQuestion = question; // Обновляем последний вопрос
+                    }
                 }
             }
         });

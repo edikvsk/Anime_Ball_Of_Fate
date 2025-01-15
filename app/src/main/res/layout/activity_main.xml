@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/ball_img_simple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ball_simple" />
+
     <EditText
         android:id="@+id/question_input"
-        android:layout_width="376dp"
-        android:layout_height="69dp"
-        android:autofillHints="Введите ваш вопрос"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="32dp"
         android:hint="@string/hint_am"
         android:inputType="text" />
 
@@ -17,16 +26,17 @@
         android:id="@+id/ask_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_ask_am"
-        android:layout_below="@id/question_input"
-        android:layout_marginTop="16dp" />
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="32dp"
+        android:text="@string/btn_ask_am" />
 
     <TextView
         android:id="@+id/answer_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ask_button"
-        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@android:color/white"
         android:textSize="18sp" />
 
-</RelativeLayout>
+</FrameLayout>
