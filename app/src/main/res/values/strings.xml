@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Anime Ball Of Fate</string>
+    <string name="hint_am">Введите ваш вопрос</string>
+    <string name="btn_ask_am">Спросить</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/question_input"
+        android:layout_width="376dp"
+        android:layout_height="69dp"
+        android:autofillHints="Введите ваш вопрос"
+        android:hint="@string/hint_am"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/ask_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_ask_am"
+        android:layout_below="@id/question_input"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/answer_output"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ask_button"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp" />
+
+</RelativeLayout>
