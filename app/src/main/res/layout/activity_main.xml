@@ -11,7 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/ball_simple" />
+        app:srcCompat="@drawable/ball_purple" />
+
+    <ImageView
+        android:id="@+id/idleImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ball_aqua_idle" />
 
     <EditText
         android:id="@+id/question_input"
@@ -36,6 +43,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
