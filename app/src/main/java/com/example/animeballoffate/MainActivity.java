@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String lastQuestion = "";
     private final AnswerManager answerManager = new AnswerManager();
+    private AnimationHelper animationHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +29,20 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        animationHelper = new AnimationHelper(this); // Инициализация AnimationHelper
+
         EditText questionInput = findViewById(R.id.question_input);
         Button askButton = findViewById(R.id.ask_button);
         TextView answerOutput = findViewById(R.id.answer_output);
         ImageView idleImage = findViewById(R.id.idleImage);
+        ImageView ballOfFate = findViewById(R.id.ball_of_fate);
 
         askButton.setOnClickListener(v -> {
             String question = questionInput.getText().toString().trim(); // Убираем пробелы по краям
 
             if (question.isEmpty()) {
                 answerOutput.setText("Введите вопрос");
-                ImageManager.setImageForEmptyQuestion(idleImage); // Устанавливаем изображение для пустого вопроса
+                ImageManager.setImageForEmptyQuestion(idleImage); // Устанавливаем изображение для пустого вопрос
             } else {
                 if (question.equals(lastQuestion)) {
                     answerOutput.setText("Вы уже получили ответ на этот вопрос. Задайте новый вопрос.");
@@ -48,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
                     lastQuestion = question;
                     String answer = answerManager.getRandomAnswer();
                     answerOutput.setText(answer);
+                    animationHelper.startFadeInScaleAnimation(answerOutput);
                     ImageManager.setImageBasedOnAnswer(idleImage, answer); // Устанавливаем изображение в зависимости от ответа
+                    animationHelper.startRotationAnimation(ballOfFate); // Запускаем анимацию вращения
                 }
             }
         });
