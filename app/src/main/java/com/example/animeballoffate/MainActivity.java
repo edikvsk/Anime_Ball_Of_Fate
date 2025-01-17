@@ -1,6 +1,8 @@
 package com.example.animeballoffate;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,25 +39,42 @@ public class MainActivity extends AppCompatActivity {
         ImageView idleImage = findViewById(R.id.idleImage);
         ImageView ballOfFate = findViewById(R.id.ball_of_fate);
 
-        askButton.setOnClickListener(v -> {
-            String question = questionInput.getText().toString().trim(); // Убираем пробелы по краям
+        askButton.setOnClickListener(v -> handleAskButtonClick(questionInput, answerOutput, idleImage, ballOfFate));
+    }
 
-            if (question.isEmpty()) {
-                answerOutput.setText("Введите вопрос");
-                ImageManager.setImageForEmptyQuestion(idleImage); // Устанавливаем изображение для пустого вопрос
+    private void handleAskButtonClick(EditText questionInput, TextView answerOutput, ImageView idleImage, ImageView ballOfFate) {
+        String question = questionInput.getText().toString().trim(); // Убираем пробелы по краям
+
+        if (question.isEmpty()) {
+            answerOutput.setText("Введите вопрос");
+            ImageManager.setImageForEmptyQuestion(idleImage); // Устанавливаем изображение для пустого вопрос
+        } else {
+            if (question.equals(lastQuestion)) {
+                answerOutput.setText("Вы уже получили ответ на этот вопрос. Задайте новый вопрос.");
+                ImageManager.setImageForSameQuestion(idleImage); // Устанавливаем изображение для повторяющегося вопроса
+                questionInput.setText(""); // Очищаем поле ввода
             } else {
-                if (question.equals(lastQuestion)) {
-                    answerOutput.setText("Вы уже получили ответ на этот вопрос. Задайте новый вопрос.");
-                    ImageManager.setImageForSameQuestion(idleImage); // Устанавливаем изображение для повторяющегося вопроса
-                    questionInput.setText(""); // Очищаем поле ввода
-                } else {
-                    lastQuestion = question;
-                    String answer = answerManager.getRandomAnswer();
-                    answerOutput.setText(answer);
-                    animationHelper.startFadeInScaleAnimation(answerOutput);
-                    ImageManager.setImageBasedOnAnswer(idleImage, answer); // Устанавливаем изображение в зависимости от ответа
-                    animationHelper.startRotationAnimation(ballOfFate); // Запускаем анимацию вращения
-                }
+                lastQuestion = question;
+                String answer = answerManager.getRandomAnswer();
+                answerOutput.setText(answer);
+                startAnswerAnimation(answerOutput, idleImage, ballOfFate, answer);
+            }
+        }
+    }
+
+    private void startAnswerAnimation(TextView answerOutput, ImageView idleImage, ImageView ballOfFate, String answer) {
+        animationHelper.startFadeWithRotateAnimation(answerOutput, new AnimationListener() {
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ImageManager.setImageBasedOnAnswer(idleImage, answer); // Устанавливаем изображение в зависимости от ответа
+                ballOfFate.setVisibility(View.VISIBLE);
+
+                animationHelper.startFadeInScaleAnimation(ballOfFate, new AnimationListener() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        animationHelper.startRotationAnimation(ballOfFate); // Запускаем вращение после завершения анимации появления
+                    }
+                });
             }
         });
     }

@@ -19,9 +19,16 @@ public class AnimationHelper {
         view.startAnimation(rotation);
     }
 
-    // Метод для запуска анимации появления и масштабирования
-    public void startFadeInScaleAnimation(View view) {
+    // Метод для запуска анимации появления и масштабирования с слушателем
+    public void startFadeInScaleAnimation(View view, Animation.AnimationListener listener) {
         Animation fadeInScale = AnimationUtils.loadAnimation(context, R.anim.fade_in_scale);
+        fadeInScale.setAnimationListener(listener); // Устанавливаем слушателя анимации
+        view.startAnimation(fadeInScale);
+    }
+
+    public void startFadeWithRotateAnimation(View view, Animation.AnimationListener listener) {
+        Animation fadeInScale = AnimationUtils.loadAnimation(context, R.anim.fade_with_rotate);
+        fadeInScale.setAnimationListener(listener); // Устанавливаем слушателя анимации
         view.startAnimation(fadeInScale);
     }
 }
